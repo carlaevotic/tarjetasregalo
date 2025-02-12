@@ -36,14 +36,15 @@ class UserResource extends Resource
                     ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                     ->dehydrated(fn ($state) => filled($state))
                     ->required(fn (string $context): bool => $context === 'create'),
-                // Forms\Components\Select::make('roles')->reactive()->multiple() ->relationship('roles', 'name')->preload(),
-                // Forms\Components\Select::make('center_id')->relationship('Center','name')->label('Centre Escolar')->visible(fn($get) => Role::where('name','centre')->whereIn('id',$get('roles'))->exists())
-                // ->required(fn($get) => Role::where('name','centre')->whereIn('id',$get('roles'))->exists()),
+                Forms\Components\Select::make('roles')->reactive()->multiple() ->relationship('roles', 'name')->preload(),
+                Forms\Components\Select::make('store_id')->relationship('Store','name')->label('Tienda')
+                ->visible(fn($get) => Role::where('name','tienda')->whereIn('id',$get('roles'))->exists())
+                ->required(fn($get) => Role::where('name','tienda')->whereIn('id',$get('roles'))->exists()),
 
-                // Forms\Components\Select::make('guardian_id')->relationship('Guardian','full_name')->label('Tutor/a')
-                // ->searchable()->preload()
-                // ->visible(fn($get) => Role::where('name','familia')->whereIn('id',$get('roles'))->exists())
-                // ->required(fn($get) => Role::where('name','familia')->whereIn('id',$get('roles'))->exists()),
+                Forms\Components\Select::make('client_id')->relationship('Client','name')->label('Client')
+                ->searchable()->preload()
+                ->visible(fn($get) => Role::where('name','cliente')->whereIn('id',$get('roles'))->exists())
+                ->required(fn($get) => Role::where('name','cliente')->whereIn('id',$get('roles'))->exists()),
             ]);
     }
 

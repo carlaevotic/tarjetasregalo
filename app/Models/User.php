@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -24,6 +25,8 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
+        'store_id',
+        'client_id'
     ];
 
     /**
@@ -49,11 +52,26 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
+    public function Store(): BelongsTo
+    {   
+        return $this->belongsTo(Store::class);
+    }   
+    public function Client(): BelongsTo
+    {   
+        return $this->belongsTo(Client::class);
+    }  
+
         // PERMISSION
         public function canAccessPanel(Panel $panel): bool
         {
             if($panel->getId() == 'admin') {
                 return auth()->user()->hasRole(['admin']);
+            }
+            if($panel->getId() == 'store') {
+                return auth()->user()->hasRole(['tienda']);
+            }
+            if($panel->getId() == 'client') {
+                return auth()->user()->hasRole(['cliente']);
             }
             return true;
         }  

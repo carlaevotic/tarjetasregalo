@@ -19,4 +19,20 @@ class Card extends Model
         return $this->belongsTo(Store::class);
     }
     
+    //Query de tablas, mostrar solo sus cards de tienda
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope('active', function ($query) {
+            if(auth()->user()->hasRole(['tienda'])){
+                return $query->where('store_id', auth()->user()->store_id);
+            }
+            if(auth()->user()->hasRole(['cliente'])){
+                return $query->where('client_id', auth()->user()->client_id);
+            }
+
+            return $query;
+            
+    });
+    }
 }

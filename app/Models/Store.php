@@ -9,14 +9,21 @@ class Store extends Model
 {
     protected $guarded = [];
 
-    // public function Clients(): HasMany
-    // {
-    //     return $this->hasMany(Client::class);
-    // }
-
-
     public function Cards(): HasMany
     {
         return $this->hasMany(Card::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope('active', function ($query) {
+            if(auth()->user()->hasRole(['tienda'])){
+                return $query->where('id', auth()->user()->store_id);
+            }
+            return $query;
+            
+    });
+    }
 }
+
