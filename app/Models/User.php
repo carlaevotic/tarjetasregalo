@@ -73,7 +73,7 @@ class User extends Authenticatable implements FilamentUser
             if($panel->getId() == 'client') {
                 return auth()->user()->hasRole(['cliente']);
             }
-            return true;
+            return false;
         }  
 
 

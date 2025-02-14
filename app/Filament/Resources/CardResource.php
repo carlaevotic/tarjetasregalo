@@ -21,7 +21,7 @@ class CardResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-gift-top';
 
-    protected static ?int $navigationSort = 03;
+    protected static ?int $navigationSort = 04;
     protected static ?string $modelLabel = "Tarjeta Regalo"; 
     protected static ?string $pluralModelLabel = "Tarjetas Regalo"; 
 

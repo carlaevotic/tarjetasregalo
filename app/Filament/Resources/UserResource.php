@@ -37,12 +37,10 @@ class UserResource extends Resource
                     ->dehydrated(fn ($state) => filled($state))
                     ->required(fn (string $context): bool => $context === 'create'),
                 Forms\Components\Select::make('roles')->reactive()->multiple() ->relationship('roles', 'name')->preload(),
-                Forms\Components\Select::make('store_id')->relationship('Store','name')->label('Tienda')
+                Forms\Components\Select::make('store_id')->relationship('Store','name')->label('Tienda')->searchable()->preload()
                 ->visible(fn($get) => Role::where('name','tienda')->whereIn('id',$get('roles'))->exists())
                 ->required(fn($get) => Role::where('name','tienda')->whereIn('id',$get('roles'))->exists()),
-
-                Forms\Components\Select::make('client_id')->relationship('Client','name')->label('Client')
-                ->searchable()->preload()
+                Forms\Components\Select::make('client_id')->relationship('Client','name')->label('Client')->searchable()->preload()
                 ->visible(fn($get) => Role::where('name','cliente')->whereIn('id',$get('roles'))->exists())
                 ->required(fn($get) => Role::where('name','cliente')->whereIn('id',$get('roles'))->exists()),
             ]);
@@ -55,12 +53,12 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('name')->label('Nombre')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('email')->label('Correo')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('roles.name')->label('Rol'),  
+                Tables\Columns\TextColumn::make('store.name')->label('Tienda'),  
+                Tables\Columns\TextColumn::make('client.name')->label('Rol'),  
             ])
             ->filters([
-                // Tables\Filters\SelectFilter::make('roles')->relationship(
-                //     name: 'roles',
-                //     titleAttribute: 'name',
-                // )
+                Tables\Filters\SelectFilter::make('roles')->relationship(name: 'roles',titleAttribute: 'name', )->label('Roles'),
+                Tables\Filters\SelectFilter::make('store')->relationship(name: 'store',titleAttribute: 'name', )->label('Tienda'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

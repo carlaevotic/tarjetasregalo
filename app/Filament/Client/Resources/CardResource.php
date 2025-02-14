@@ -40,7 +40,7 @@ class CardResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
             ]);

@@ -13,6 +13,15 @@ class Store extends Model
     {
         return $this->hasMany(Card::class);
     }
+    public function User(): HasMany
+    {
+        return $this->hasMany(User::class,);
+    }
+
+    public function Orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
 
     protected static function boot()
     {

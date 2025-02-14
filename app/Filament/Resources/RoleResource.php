@@ -21,7 +21,7 @@ class RoleResource extends Resource
     protected static ?int $navigationSort = 05;
     protected static ?string $modelLabel = "Rol"; 
     protected static ?string $pluralModelLabel = "Roles"; 
-    protected static bool $shouldRegisterNavigation = false;
+    // protected static bool $shouldRegisterNavigation = false;
     
     // public static function getEloquentQuery(): Builder
     // {

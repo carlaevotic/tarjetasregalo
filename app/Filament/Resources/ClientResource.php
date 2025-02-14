@@ -19,7 +19,7 @@ class ClientResource extends Resource
     protected static ?string $model = Client::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
-    protected static ?int $navigationSort = 02;
+    protected static ?int $navigationSort = 03;
     protected static ?string $modelLabel = "Cliente"; 
     protected static ?string $pluralModelLabel = "Clientes"; 
 
@@ -28,6 +28,7 @@ class ClientResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')->label('Nombre')->required(),
+                Forms\Components\Select::make('store_id')->relationship('Stores','name')->label('Tienda')->required()->preload()->multiple(),
             ]);
     }
 
