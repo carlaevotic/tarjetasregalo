@@ -21,6 +21,6 @@ class EditOrder extends EditRecord
         $this->record->update([
             'amount_order' => $this->record?->lines->sum('total'),
         ]);
-        
+        $this->redirect($this->getResource()::getUrl('edit', ['record' => $this->record->getKey()]));
     }
 }

@@ -19,4 +19,18 @@ class Order extends Model
     {
         return $this->hasMany(OrderLine::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope('active', function ($query) {
+            if(auth()->user()->hasRole(['tienda'])){
+                $storeId = auth()->user()->store_id;
+                $query->whereHas('store', function ($q) use ($storeId) {
+                    $q->where('store_id', $storeId); 
+                });
+            }
+            
+    });
+    }
 }

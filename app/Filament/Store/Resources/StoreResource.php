@@ -20,10 +20,10 @@ class StoreResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
     protected static ?string $modelLabel = "Mi Tienda"; 
 
-    // public static function getNavigationUrl(): string
-    // {
-    //     return static::getUrl('edit', ['record' => auth()->user()->store->id]);
-    // }
+    public static function getNavigationUrl(): string
+    {
+        return static::getUrl('edit', ['record' => auth()->user()->store->id]);
+    }
     public static function form(Form $form): Form
     {
         return $form
@@ -47,7 +47,7 @@ class StoreResource extends Resource
         return [
             'index' => Pages\ListStores::route('/'),
             // 'create' => Pages\CreateStore::route('/create'),
-            // 'edit' => Pages\EditStore::route('/{record}/edit'),
+            'edit' => Pages\EditStore::route('/{record}/edit'),
         ];
     }
 }

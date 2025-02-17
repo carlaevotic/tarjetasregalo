@@ -33,7 +33,9 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('n_order')->label('Nº Pedido') ->searchable(),
+                Tables\Columns\TextColumn::make('lines.qty')->label('Tarjetas')->alignCenter(),
+                Tables\Columns\TextColumn::make('amount_order')->label('Total'),
             ])
             ->filters([
                 //
@@ -68,9 +70,10 @@ class OrderResource extends Resource
     {
         return $infolist
             ->schema([
-                // TextEntry::make('name')->label('Tarjeta'),
-                // TextEntry::make('store.name')->label('Tienda'),
-                // TextEntry::make('import')->label('Importe')->formatStateUsing(fn ($state) => $state . ' €'),
+                TextEntry::make('n_order')->label('Nº Pedido'),
+                TextEntry::make('lines.qty')->label('Tarjetas'),
+                TextEntry::make('amount_order')->label('Importe')->formatStateUsing(fn ($state) => $state . ' €'),
+                
             ])->columns(3);
     }
 }
