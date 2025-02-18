@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('client_id')->onDelete('constrained');
             $table->foreignId('store_id')->onDelete('constrained');
+            $table->tinyInteger('status')->default(0)->nullable();
             $table->decimal('import',10,2)->nullable();
             $table->timestamps();
         });

@@ -15,7 +15,7 @@ class CreateOrder extends CreateRecord
         //CREAR Nº Pedido
         $this->record->update([
             'n_order' => str_pad($this->record->id, 2, '0', STR_PAD_LEFT),
-            // 'amount_order' => $this->record?->lines->sum('total'),
+            'amount_order' => $this->record?->lines->sum('total'),
         ]);
 
         

@@ -68,6 +68,12 @@ class CardResource extends Resource
                 TextEntry::make('name')->label('Tarjeta'),
                 TextEntry::make('store.name')->label('Tienda'),
                 TextEntry::make('import')->label('Importe')->formatStateUsing(fn ($state) => $state . ' €'),
+                TextEntry::make('movements')->label('Movimientos')
+                ->formatStateUsing(function ($state, $record) {
+                    return $record->Movements->map(function ($mov) {
+                        return "<li>" . $mov->import . " € " . $mov->action->getLabel() . "</li>";
+                    })->join('');})
+                    ->html()
             ])->columns(3);
     }
 

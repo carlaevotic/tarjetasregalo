@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\CardStatus;
 use App\Filament\Resources\CardResource\Pages;
 use App\Filament\Resources\CardResource\RelationManagers;
+use App\Filament\Store\Resources\CardResource\RelationManagers\MovementsRelationManager;
 use App\Models\Card;
 use App\Models\Store;
 use Filament\Forms;
@@ -32,6 +34,7 @@ class CardResource extends Resource
                 Forms\Components\TextInput::make('name')->label('Tarjeta')->required(),
                 Forms\Components\Select::make('client_id')->relationship('client','name')->label('Cliente')->required(),
                 Forms\Components\Select::make('store_id')->relationship('store','name')->label('Tienda')->required(),
+                Forms\Components\ToggleButtons::make('status')->inline()->options(CardStatus::class)->label('Estado')->default(0)->required(),
                 Forms\Components\TextInput::make('import')->label('Importe')->numeric()->suffix('€'),
             ]);
     }
@@ -44,6 +47,7 @@ class CardResource extends Resource
                 Tables\Columns\TextColumn::make('client.name')->label('Cliente')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('store.name')->label('Tienda')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('import')->label('Import')->sortable()->formatStateUsing(fn ($state) => $state . ' €'),
+                Tables\Columns\TextColumn::make('status')->label('Estado')->searchable()->sortable(),
 
             ])
             ->filters([
@@ -62,7 +66,7 @@ class CardResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            MovementsRelationManager::class,
         ];
     }
 

@@ -35,7 +35,7 @@ class StorePanelProvider extends PanelProvider
             // ->brandLogo('/storage/logo2.png')
             ->brandLogoHeight('3.5rem')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => '#ff00aa',
             ])
             ->discoverResources(in: app_path('Filament/Store/Resources'), for: 'App\\Filament\\Store\\Resources')
             ->discoverPages(in: app_path('Filament/Store/Pages'), for: 'App\\Filament\\Store\\Pages')

@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Store extends Model
 {
     protected $guarded = [];
+    protected function casts(): array
+    {  return [
+            'billing' => 'array',
+            'shippinh' => 'array'
+        ];
+    }
 
     public function Cards(): HasMany
     {

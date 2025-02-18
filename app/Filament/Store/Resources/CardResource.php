@@ -2,8 +2,10 @@
 
 namespace App\Filament\Store\Resources;
 
+use App\Enums\CardStatus;
 use App\Filament\Store\Resources\CardResource\Pages;
 use App\Filament\Store\Resources\CardResource\RelationManagers;
+use App\Filament\Store\Resources\CardResource\RelationManagers\MovementsRelationManager;
 use App\Models\Card;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -27,9 +29,10 @@ class CardResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->label('Tarjeta')->required(),
-                Forms\Components\Select::make('client_id')->relationship('client','name')->label('Cliente')->required(),
-                Forms\Components\TextInput::make('import')->label('Importe')->numeric()->suffix('€'),
+                Forms\Components\TextInput::make('name')->label('Tarjeta')->required()->readOnly(),
+                Forms\Components\Select::make('client_id')->relationship('client','name')->label('Cliente')->required()->disabled(),
+                Forms\Components\TextInput::make('import')->label('Importe')->numeric()->suffix('€')->readOnly(),
+                Forms\Components\ToggleButtons::make('status')->inline()->options(CardStatus::class)->label('Estado'),
             ]);
     }
 
@@ -57,7 +60,7 @@ class CardResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            MovementsRelationManager::class,
         ];
     }
 

@@ -29,6 +29,8 @@ class ClientResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')->label('Nombre')->required(),
                 Forms\Components\Select::make('store_id')->relationship('Stores','name')->label('Tienda')->required()->preload()->multiple(),
+                Forms\Components\TextInput::make('email')->email()->label('Correo'),
+                Forms\Components\DatePicker::make('birth_date')->label('Fecha Nacimiento'),
             ]);
     }
 
@@ -37,6 +39,8 @@ class ClientResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Nombre')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('email')->label('Correo')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('birth_date')->label('Fecha Nacimiento')->searchable()->sortable(),
             ])
             ->filters([
                 //

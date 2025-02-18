@@ -27,6 +27,8 @@ class ClientResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')->label('Nombre')->required(),
+                Forms\Components\TextInput::make('email')->email()->label('Correo'),
+                Forms\Components\DatePicker::make('birth_date')->label('Fecha Nacimiento'),
             ]);
     }
 

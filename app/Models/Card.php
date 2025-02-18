@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
+use App\Enums\CardStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Card extends Model
 {
     protected $guarded = [];
+    protected function casts(): array
+    {  return [
+            'status' => CardStatus::class,
+        ];
+    }
 
     public function Client(): BelongsTo
     {
@@ -17,6 +24,11 @@ class Card extends Model
     public function Store(): BelongsTo
     {
         return $this->belongsTo(Store::class);
+    }
+
+    public function Movements(): HasMany
+    {
+        return $this->hasMany(Movement::class);
     }
     
     //Query de tablas, mostrar solo sus cards de tienda
